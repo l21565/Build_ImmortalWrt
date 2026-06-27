@@ -29,6 +29,10 @@ env:
   TZ: Asia/Shanghai
 
 jobs:
+  permissions:
+    contents: write
+    packages: write
+    
   build:
     runs-on: ubuntu-22.04
 
