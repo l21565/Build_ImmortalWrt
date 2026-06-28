@@ -20,9 +20,11 @@ env:
   REPO_URL: https://github.com/immortalwrt/immortalwrt
   REPO_BRANCH: openwrt-25.12
   FEEDS_CONF: feeds.conf.default
-  CONFIG_FILE1: .config
-  CONFIG_FILE2: config-kernel
-  CONFIG_FILE3: target/linux/rockchip/armv8/config-6.12
+  CONFIG_FILE: .config
+  CONFIG_GENERIC: config-generic
+  CONFIG_GENERIC_TARGET: target/linux/generic/config-6.12
+  CONFIG_CHIP: config-chip
+  CONFIG_CHIP_TARGET: target/linux/rockchip/armv8/config-6.12
   DIY_P1_SH: diy-part1.sh
   DIY_P2_SH: diy-part2.sh  
   UPLOAD_BIN_DIR: false
@@ -78,8 +80,9 @@ jobs:
     - name: Load custom configuration
       run: |
         [ -e files ] && mv files openwrt/files
-        [ -e $CONFIG_FILE1 ] && mv $CONFIG_FILE1 openwrt/.config
-        [ -e $CONFIG_FILE2 ] && mv $CONFIG_FILE2 openwrt/$CONFIG_FILE3
+        [ -e $CONFIG_FILE ] && mv $CONFIG_FILE openwrt/.config
+        [ -e $CONFIG_GENERIC ] && mv $CONFIG_GENERIC openwrt/$CONFIG_GENERIC_TARGET
+        [ -e $CONFIG_CHIP ] && mv $CONFIG_CHIP openwrt/$CONFIG_CHIP_TARGET
         chmod +x $DIY_P2_SH
         cd openwrt
         $GITHUB_WORKSPACE/$DIY_P2_SH
