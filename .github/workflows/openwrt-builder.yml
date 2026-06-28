@@ -93,7 +93,7 @@ jobs:
         find dl -size -1024c -exec rm -f {} \;
 
     - name: Modify default kernel configuration
-      id: default_kernel_config
+      id: kernel_config
       run: |       
         cd openwrt
         $GITHUB_WORKSPACE/$DIY_P3_SH
