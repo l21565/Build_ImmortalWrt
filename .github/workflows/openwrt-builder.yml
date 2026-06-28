@@ -90,7 +90,7 @@ jobs:
         
     - name: Patch kernel.config
       run: |
-        KERN_CONF=$(find openwrt/build_dir -name '.config' -path '*/linux-rockchip*' | head -1)
+        KERN_CONF=$(find ./build_dir -name '.config' -path '*/linux-rockchip*' | head -1)
         [ -n "$KERN_CONF" ] cp $CONFIG_FILE2 "$KERN_CONF"        
 
     - name: Download package 2
