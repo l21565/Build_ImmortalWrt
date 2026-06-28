@@ -24,6 +24,7 @@ env:
   CONFIG_FILE2: kernel.config
   DIY_P1_SH: diy-part1.sh
   DIY_P2_SH: diy-part2.sh
+  DIY_P3_SH: diy-part3.sh
   UPLOAD_BIN_DIR: false
   UPLOAD_FIRMWARE: true
   UPLOAD_RELEASE: true
@@ -82,24 +83,20 @@ jobs:
         cd openwrt
         $GITHUB_WORKSPACE/$DIY_P2_SH
 
-    - name: Download package 1
-      id: package1
+    - name: Download package
+      id: package
       run: |
         cd openwrt
-        make defconfig
-        
-    - name: Patch kernel.config
-      run: |
-        KERN_CONF=$(find openwrt/build_dir -name '.config' -path '*/linux-rockchip*' | head -1)
-        [ -n "$KERN_CONF" ] cp $CONFIG_FILE2 "$KERN_CONF"        
-
-    - name: Download package 2
-      id: package2
-      run: |
-        cd openwrt        
+        make defconfig            
         make download -j8
         find dl -size -1024c -exec ls -l {} \;
         find dl -size -1024c -exec rm -f {} \;
+
+    - name: Modify default kernel configuration
+      id: default_kernel_config
+      run: |       
+        cd openwrt
+        $GITHUB_WORKSPACE/$DIY_P3_SH
       
     - name: Compile the firmware
       id: compile
