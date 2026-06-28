@@ -94,7 +94,8 @@ jobs:
 
     - name: Modify default kernel configuration
       id: kernel_config
-      run: |       
+      run: |    
+        chmod +x $DIY_P3_SH
         cd openwrt
         $GITHUB_WORKSPACE/$DIY_P3_SH
       
