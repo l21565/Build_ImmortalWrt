@@ -1,1 +1,1 @@
-#Modify the configuration of kernel
+#Modify the default configuration of kernel
